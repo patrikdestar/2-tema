@@ -1,7 +1,18 @@
+.PHONY: git
+
 OMPDO:
 	clear
-	make -B OMP
+	make -B matrix
 
-OMP:
-	g++ -fopenmp -g -v main.cpp -Wall -o something
+matrix:
+	g++ -fopenmp -g main.cpp -Wall -o something
 	./something
+
+git: git_push
+
+git_push:
+	@echo "Enter your commit message:"
+	@read commit_message; \
+	git add .; \
+	git commit -m "$$commit_message"; \
+	git push;
