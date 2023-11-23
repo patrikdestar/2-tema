@@ -1,6 +1,6 @@
 .PHONY: git
 
-OMPDO:
+DO:
 	clear
 	make -B matrix
 
