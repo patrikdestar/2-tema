@@ -65,39 +65,32 @@ public:
     /* Printer (tikriausiai siai klasei nepriklausys nes negali printint nezinomu dalyku)*/
     void print(std::string which_one, long xx, long yy)
     {
-        // if (which_one == "sum"){
-        //     printf("\nMatrcų A ir B suma C:\n\n");
-        //     for (int y = 0; y < yy; ++y) {
-        //         for (int x = 0; x < xx; ++x) {
-        //             std::cout << matrix_C->at(x).at(y) << " ";
-        //         }
-        //         std::cout << std::endl;
-        //     }
+        if (which_one == "sum"){
+            printf("\nMatrcų A ir B suma C;\n\n");
+            for (int y = 0; y < yy; ++y) {
+                for (int x = 0; x < xx; ++x) {
+                    std::cout << matrix_C->at(x).at(y) << " ";
+                }
+                std::cout << std::endl;
+            }
         // } else if (which_one == "sub"){
-        //     printf("\nMatrcų A ir B skirtumas C:\n\n");
+        //     printf("\nMatrcų A ir B skirtumas C;\n\n");
         //     for (int y = 0; y < yy; ++y) {
         //         for (int x = 0; x < xx; ++x) {
         //             std::cout << matrix_C->at(x).at(y) << " ";
         //         }
         //         std::cout << std::endl;
         //     }
-        // } else if (which_one == "mul"){
-        //     printf("\nMatrcų A ir B sandauga C:\n\n");
-        //     for (int y = 0; y < yy; ++y) {
-        //         for (int x = 0; x < xx; ++x) {
-        //             std::cout << matrix_C->at(x).at(y) << " ";
-        //         }
-        //         std::cout << std::endl;
-        //     }
-        // }
+        }
+        std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
     }
     // ---------------------------------------------------------------------------------------------
     /* Allocates */
     void allocate(){
-        long xx = dim_B_x, yy = dim_A_y;
+        long xx = dim_A_x, yy = dim_A_y;
         if (matrix_C->size() > 0){
             matrix_C->resize(xx);
-            for (long i = 0; i < xx; i++){
+            for (long i = 0; i < yy; i++){
                 matrix_C->at(i).resize(yy);
             }
             } else {
@@ -106,7 +99,7 @@ public:
     }
     // ---------------------------------------------------------------------------------------------
     /* Sudeda matricas */
-    void summation(bool do_print = false){
+    void summation(){
         if (dim_A_x == dim_B_x && dim_A_y == dim_B_y){
             long xx = dim_A_x, yy = dim_A_y; // dimensions
             allocate();
@@ -119,15 +112,14 @@ public:
                 }
             }
             duration = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
-            if (do_print) print("sum", xx, yy);
+            print("sum", xx, yy);
         } else {
             printf("\nNegalimas veiksmas, matricų dimensijos nesutampa!!!\n\n");
         }
     }
     // ---------------------------------------------------------------------------------------------
     /* Atima matricas */
-    void subtraction(bool do_print = false){
+    void subtraction(){
         if (dim_A_x == dim_B_x && dim_A_y == dim_B_y){
             long xx = dim_A_x, yy = dim_A_y; // dimensions
             allocate();
@@ -140,33 +132,7 @@ public:
                 }
             }
             duration = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
-            if (do_print) print("sub", xx, yy);
-        } else {
-            printf("\nNegalimas veiksmas, matricų dimensijos nesutampa!!!\n\n");
-        }
-    }
-    // ---------------------------------------------------------------------------------------------
-    /* Daugina matricas*/
-    void multiplication(bool do_print = false){
-        if (dim_A_x == dim_B_y){
-            allocate();
-            printf("Daugyba praideda:\n");
-            long dim = dim_A_x;
-            auto start = std::chrono::high_resolution_clock::now();
-            #pragma omp parallel for collapse(2)
-            for (long yA = 0; yA < dim_A_y; ++yA) {
-                for (long xB = 0; xB < dim_B_x; ++xB) {
-                    T element = 0;
-                    for (long n = 0; n < dim; n++) {
-                        element = element + matrix_A->at(n).at(yA)*matrix_B->at(xB).at(n);
-                    }
-                    matrix_C->at(xB).at(yA) = element;
-                }
-            }
-            duration = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
-            if (do_print) print("mul", dim_B_x, dim_A_y);
+            print("sub", xx, yy);
         } else {
             printf("\nNegalimas veiksmas, matricų dimensijos nesutampa!!!\n\n");
         }
