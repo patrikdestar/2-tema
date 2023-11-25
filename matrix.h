@@ -62,47 +62,45 @@ public:
         get_stuff(A,B,C);
     }
     // ---------------------------------------------------------------------------------------------
-    /* Printer (tikriausiai siai klasei nepriklausys nes negali printint nezinomu dalyku)*/
+    /* Printer (cant print complex for sure)*/
     void print(std::string which_one, long xx, long yy)
     {
-        // if (which_one == "sum"){
-        //     printf("\nMatrcų A ir B suma C:\n\n");
-        //     for (int y = 0; y < yy; ++y) {
-        //         for (int x = 0; x < xx; ++x) {
-        //             std::cout << matrix_C->at(x).at(y) << " ";
-        //         }
-        //         std::cout << std::endl;
-        //     }
-        // } else if (which_one == "sub"){
-        //     printf("\nMatrcų A ir B skirtumas C:\n\n");
-        //     for (int y = 0; y < yy; ++y) {
-        //         for (int x = 0; x < xx; ++x) {
-        //             std::cout << matrix_C->at(x).at(y) << " ";
-        //         }
-        //         std::cout << std::endl;
-        //     }
-        // } else if (which_one == "mul"){
-        //     printf("\nMatrcų A ir B sandauga C:\n\n");
-        //     for (int y = 0; y < yy; ++y) {
-        //         for (int x = 0; x < xx; ++x) {
-        //             std::cout << matrix_C->at(x).at(y) << " ";
-        //         }
-        //         std::cout << std::endl;
-        //     }
-        // }
+        if (which_one == "sum"){
+            printf("\nMatrcų A ir B suma C:\n\n");
+            for (int y = 0; y < yy; ++y) {
+                for (int x = 0; x < xx; ++x) {
+                    std::cout << matrix_C->at(x).at(y) << " ";
+                }
+                std::cout << std::endl;
+            }
+        } else if (which_one == "sub"){
+            printf("\nMatrcų A ir B skirtumas C:\n\n");
+            for (int y = 0; y < yy; ++y) {
+                for (int x = 0; x < xx; ++x) {
+                    std::cout << matrix_C->at(x).at(y) << " ";
+                }
+                std::cout << std::endl;
+            }
+        } else if (which_one == "mul"){
+            printf("\nMatrcų A ir B sandauga C:\n\n");
+            for (int y = 0; y < yy; ++y) {
+                for (int x = 0; x < xx; ++x) {
+                    std::cout << matrix_C->at(x).at(y) << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+        std::cout << std::endl;
     }
     // ---------------------------------------------------------------------------------------------
     /* Allocates */
     void allocate(){
         long xx = dim_B_x, yy = dim_A_y;
-        if (matrix_C->size() > 0){
-            matrix_C->resize(xx);
-            for (long i = 0; i < xx; i++){
-                matrix_C->at(i).resize(yy);
-            }
-            } else {
-                matrix_C = new vec(xx, std::vector<T>(yy, 0));
-            }
+        matrix_C->resize(xx);
+        for (long i = 0; i < xx; i++){
+            matrix_C->at(i).resize(yy);
+        }
+
     }
     // ---------------------------------------------------------------------------------------------
     /* Sudeda matricas */
@@ -119,7 +117,7 @@ public:
                 }
             }
             duration = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
+            std::cout << "Elapsed time: " << duration.count() << " seconds\n";
             if (do_print) print("sum", xx, yy);
         } else {
             printf("\nNegalimas veiksmas, matricų dimensijos nesutampa!!!\n\n");
@@ -140,7 +138,7 @@ public:
                 }
             }
             duration = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
+            std::cout << "Elapsed time: " << duration.count() << " seconds\n";
             if (do_print) print("sub", xx, yy);
         } else {
             printf("\nNegalimas veiksmas, matricų dimensijos nesutampa!!!\n\n");
@@ -165,7 +163,7 @@ public:
                 }
             }
             duration = std::chrono::high_resolution_clock::now() - start;
-            std::cout << "Elapsed time: " << duration.count() << " seconds\n\n";
+            std::cout << "Elapsed time: " << duration.count() << " seconds\n";
             if (do_print) print("mul", dim_B_x, dim_A_y);
         } else {
             printf("\nNegalimas veiksmas, matricų dimensijos nesutampa!!!\n\n");
