@@ -1,0 +1,34 @@
+Matrix size:   8192 |  1 threads
+* Serial fill    in   2.43 s [t*N:   2.43] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill    in   2.47 s [t*N:   2.47] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread update  in   1.88 s [t*N:   1.88] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum     in   1.99 s [t*N:   1.99] * Values: [ -0.608 +1.793 -1.740 -1.008 ]
+
+Matrix size:   8192 |  4 threads
+* Serial fill    in   2.45 s [t*N:   2.45] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+					<1> Užpildymas turėtų būti beveik tiesiškai spartinamas, kol gijų sk. < branduolių sk.
+* Thread fill    in   2.60 s [t*N:  10.40] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+					<2> Atnaujinimas A = A + X - X keliomis gijomis neturėtų pakeisti rezultato
+* Thread update  in   0.83 s [t*N:   3.31] * Values: [ +0.096 +0.897 -1.170 -1.304 ]
+					<3> Sudėtis C = A + B turėtų būti beveik tiesiškai spartinama, o ne lėtėti
+* Thread sum     in   4.53 s [t*N:  18.10] * Values: [ -0.608 +1.793 -1.740 -1.008 ]
+
+Matrix size:   8192 | 16 threads
+* Serial fill    in   2.44 s [t*N:   2.44] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill    in   6.24 s [t*N:  99.84] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread update  in   0.83 s [t*N:  13.34] * Values: [ -0.304 +1.797 -0.870 +1.296 ]
+* Thread sum     in  21.90 s [t*N: 350.34] * Values: [ -0.608 +1.793 -1.740 -1.008 ]
+
+
+Matrix size:   1024 |  1 threads
+Calculating product...
+					<4> Daugyba smarkiai (~1000 k.) lėtesnė už sudėtį; vertėtų optimizuoti
+* Thread product in   4.55 s [t*N:   4.55] * Values: [ +0.455 -0.159 -0.469 +0.145 ]
+
+Matrix size:   1024 |  4 threads
+Calculating product...
+					<5> Daugyba C = A * B irgi turėtų būti nors kiek spartinama, o ne lėtėti
+* Thread product in   6.90 s [t*N:  27.60] * Values: [ +0.455 -0.159 -0.469 +0.145 ]
+
+Matrix size:   1024 | 16 threads
+* Thread product in  26.99 s [t*N: 431.78] * Values: [ +0.455 -0.159 -0.469 +0.145 ]
