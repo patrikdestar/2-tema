@@ -49,7 +49,6 @@ public:
     matrix& operator= (const matrix& m);
     matrix& operator+= (const matrix& B);
     matrix& operator-= (const matrix& B);
-    matrix& operator*= (const matrix& B);
     
     // Accessors
     T& operator() (unsigned r, unsigned c);
@@ -72,7 +71,7 @@ public:
     template <typename U>
     friend matrix<U> operator* (const matrix<U>& A, const matrix<U>& B);
 
-    unsigned R,C,V;
+    unsigned R,C, V;
 };
 // ---------------------------------------------------------------------------------------------
 template <typename T>
@@ -175,10 +174,10 @@ T matrix<T>::det(T eig) {
         det *= U[i][i];
     }
 
-    // // Consider the effect of the eigenvalue
-    // if (eig != 0) {
-    //     det *= eig;
-    // }
+    // Consider the effect of the eigenvalue
+    if (eig != 0) {
+        det *= eig;
+    }
     
     return det;
 }
@@ -200,16 +199,16 @@ void matrix<T>::luDecomposition(const vec& A, vec& L, vec& U, std::vector<unsign
             }
         }
 
+        if (U[p][k] == 0) {
+            throw std::runtime_error("LU decomposition failed: Matrix is singular.");
+        }
+
         std::swap(pivot[k], pivot[p]);
         #pragma omp parallel for
         for (unsigned i = k + 1; i < n; i++) {
-            if (U[k][k] == 0){L[i][k] = 0;}
-            else {
-                L[i][k] = U[i][k] / U[k][k];}
+            L[i][k] = U[i][k] / U[k][k];
             for (unsigned j = k + 1; j < n; j++) {
-                if (L[i][k] == 0){U[i][j] -= U[k][j];}
-                else {
-                U[i][j] -= L[i][k] * U[k][j];}
+                U[i][j] -= L[i][k] * U[k][j];
             }
         }
     }
@@ -286,30 +285,6 @@ matrix<T>& matrix<T>::operator-= (const matrix<T>& B)
     return *this;
 }
 
-template <typename T>
-matrix<T>& matrix<T>::operator*= (const matrix<T>& B)
-{
-    if (C != B.R) {
-        throw std::invalid_argument("Number of columns in the first matrix must be equal to the number of rows in the second matrix for multiplication");
-    }
-    vec A = *data;
-    vec result(R, std::vector<T>(B.C, 0));  // Create a new matrix to store the result
-
-    #pragma omp parallel for collapse(3)
-    for (unsigned i = 0; i < R; ++i) {
-        for (unsigned j = 0; j < B.C; ++j) {
-            for (unsigned k = 0; k < C; ++k) {
-                result[i][j] += A[i][k] * B(k, j);
-            }
-        }
-    }
-
-    // Update the original matrix with the result
-    *data = result;
-
-    return *this;
-}
-
 
 template <typename T>
 matrix<T> operator+ (const matrix<T>& A, const matrix<T>& B)
@@ -335,7 +310,7 @@ matrix<T> operator- (const matrix<T>& A, const matrix<T>& B)
         }
 
     matrix<T> data(A.R, B.C);
-    #pragma omp parallel for collapse(2)
+    #pragma omp parallel for
     for (unsigned i=0; i<data.R; ++i)
         for (unsigned j=0; j<data.C; ++j)
             data(i,j) = A(i,j) - B(i,j);
@@ -351,7 +326,7 @@ matrix<T> operator* (const matrix<T>& A, const matrix<T>& B)
     }
 
     matrix<T> data(A.R, B.C);
-    #pragma omp parallel for collapse(3)
+    #pragma omp parallel for
     for (unsigned i=0; i<data.R; ++i)
         for (unsigned j=0; j<data.C; ++j)
             for (unsigned k=0; k<A.C; ++k)
