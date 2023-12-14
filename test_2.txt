@@ -1,0 +1,63 @@
+Size:   8192 | 1 threads
+* Serial fill       in  2.066 s [t*N:  2.066] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  2.059 s [t*N:  2.059] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  6.242 s [t*N:  6.242] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  2.250 s [t*N:  2.250] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  5.902 s [t*N:  5.902] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  2.276 s [t*N:  2.276] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  3.059 s [t*N:  3.059] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+
+
+Size:   8192 | 4 threads
+* Serial fill       in  2.149 s [t*N:  2.149] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  0.600 s [t*N:  2.401] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.781 s [t*N:  7.122] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.618 s [t*N:  2.473] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.769 s [t*N:  7.078] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.598 s [t*N:  2.391] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.891 s [t*N:  3.564] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+
+
+Size:   8192 | 8 threads
+* Serial fill       in  2.176 s [t*N:  2.176] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  0.500 s [t*N:  3.997] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.518 s [t*N: 12.148] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.511 s [t*N:  4.092] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.533 s [t*N: 12.265] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.509 s [t*N:  4.076] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.675 s [t*N:  5.400] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+
+
+Size:   8192 | 12 threads
+* Serial fill       in  2.089 s [t*N:  2.089] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  0.396 s [t*N:  4.756] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.255 s [t*N: 15.057] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.413 s [t*N:  4.951] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.263 s [t*N: 15.160] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.410 s [t*N:  4.919] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.616 s [t*N:  7.387] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+
+
+Size:   1024 | 1 threads
+Calculating det...
+* Thread det     in  3.823 s [t*N:  3.823] * Value: [ -nan ]
+Calculating product...
+* Thread product in 61.210 s [t*N: 61.210] * Values: [ +0.236 +1.151 -0.715 +11.283 ]
+
+Size:   1024 | 4 threads
+Calculating det...
+* Thread det     in  1.357 s [t*N:  5.427] * Value: [ -inf ]
+Calculating product...
+* Thread product in 17.086 s [t*N: 68.344] * Values: [ +0.236 +1.151 -0.715 +11.283 ]
+
+Size:   1024 | 8 threads
+Calculating det...
+* Thread det     in  1.112 s [t*N:  8.895] * Value: [ -inf ]
+Calculating product...
+* Thread product in 13.460 s [t*N: 107.680] * Values: [ +0.236 +1.151 -0.715 +11.283 ]
+
+Size:   1024 | 12 threads
+Calculating det...
+* Thread det     in  1.115 s [t*N: 13.383] * Value: [ -inf ]
+Calculating product...
+* Thread product in 11.941 s [t*N: 143.288] * Values: [ +0.236 +1.151 -0.715 +11.283 ]

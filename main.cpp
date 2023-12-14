@@ -31,7 +31,6 @@ void run()
 {
     // My precious matrces
     matrix<type> R(MSIZE, MSIZE), A(MSIZE, MSIZE), B(MSIZE, MSIZE), C(MSIZE, MSIZE);
-    std::cout << R.C;
     for (int a = 0; a < 4; a++){
     if (a == 0) threads = 1;
     else threads = 4*a;
@@ -41,21 +40,21 @@ void run()
     auto start = std::chrono::high_resolution_clock::now();
     R.fill(baggsin);
     auto duration = std::chrono::high_resolution_clock::now() - start;
-    printf ("* Serial fill   ");
+    printf ("* Serial fill      ");
     show_time(((double)duration.count())/1000000000, 1);
     show_vals(R, 0);
 
     omp_set_num_threads(threads);
     // TEST 1: implicit fill
     start = std::chrono::high_resolution_clock::now();
-    A.fill(baggsin);
+    B.fill(baggsin);
     duration = std::chrono::high_resolution_clock::now() - start;
-    printf ("* Thread fill   ");
+    printf ("* Thread fill      ");
     show_time(((double)duration.count())/1000000000, threads);
-    show_vals(A, 0);
+    show_vals(B, 0);
 
     // TEST 2: implicit sum
-    A = R; B = R;
+    A.tr(R);
     start = std::chrono::high_resolution_clock::now();
     int REPS = 1;
     for (int k=0; k<REPS; ++k)
@@ -63,10 +62,53 @@ void run()
         C = A + B;
     }
     duration = std::chrono::high_resolution_clock::now() - start;
-    printf ("* Thread sum    ");
+    printf ("* Thread sum (+)   ");
     show_time(((double)duration.count())/1000000000, threads);
     show_vals(C, 0);
 
+    start = std::chrono::high_resolution_clock::now();
+    for (int k=0; k<REPS; ++k)
+    {
+        A += B;
+    }
+    duration = std::chrono::high_resolution_clock::now() - start;
+    printf ("* Thread sum (+=)  ");
+    show_time(((double)duration.count())/1000000000, threads);
+    show_vals(A, 0);
+
+    // TEST 3: implicit sub
+    A.tr(R);
+    start = std::chrono::high_resolution_clock::now();
+    for (int k=0; k<REPS; ++k)
+    {
+        C = A - B;
+    }
+    duration = std::chrono::high_resolution_clock::now() - start;
+    printf ("* Thread sub (-)   ");
+    show_time(((double)duration.count())/1000000000, threads);
+    show_vals(C, 0);
+
+    start = std::chrono::high_resolution_clock::now();
+    for (int k=0; k<REPS; ++k)
+    {
+        A -= B;
+    }
+    duration = std::chrono::high_resolution_clock::now() - start;
+    printf ("* Thread sub (-=)  ");
+    show_time(((double)duration.count())/1000000000, threads);
+    show_vals(A, 0);
+    A.tr(R);
+    // TEST 4: tr
+    start = std::chrono::high_resolution_clock::now();
+    for (int k=0; k<REPS; ++k)
+    {
+        A.tr(C);
+    }
+    duration = std::chrono::high_resolution_clock::now() - start;
+    printf ("* Thread tr        ");
+    show_time(((double)duration.count())/1000000000, threads);
+    show_vals(A, 0);
+    std::cout << "\n";
     }
 
     C.resize(MSIZE2,MSIZE2);A.resize(MSIZE2,MSIZE2);B.resize(MSIZE2,MSIZE2);
@@ -75,12 +117,22 @@ void run()
     else threads = 4*a;
     omp_set_num_threads(threads);
     printf("\nSize:   %i | %i threads\n", MSIZE2, threads);
-    // TEST 3: implicit product
-    printf ("Calculating product...\n");
+
+    // TEST 4: det
+    printf ("Calculating det...\n");
     auto start = std::chrono::high_resolution_clock::now();
+    type det = C.det();
+    auto duration = std::chrono::high_resolution_clock::now() - start;
+    printf ("* Thread det    ");
+    show_time(((double)duration.count())/1000000000, threads);
+    printf ("* Value: [ %+.3f ]", det);
+
+    // TEST 6: implicit product
+    printf ("\nCalculating product...\n");
+    start = std::chrono::high_resolution_clock::now();
     C = A * B;
 
-    auto duration = std::chrono::high_resolution_clock::now() - start;
+    duration = std::chrono::high_resolution_clock::now() - start;
     printf ("* Thread product");
     show_time(((double)duration.count())/1000000000, threads);
     show_vals(C, 1);
@@ -88,13 +140,14 @@ void run()
 }
 
 int main(){
-    printf("Hello world\n");
-    omp_set_num_threads(2);
-    // Pastabos so far:
-    // reikia sukurti klase kuri ir yra matrica, ir veiksmai su ta klase
-    // turi but aprašomi zenklais
 
     run();
-    
+
+
+    // omp_set_num_threads(8);
+    // matrix<type> A(2,2,2);
+    // printf("\ndeterminants: %+.3f\n",A.det(1));
+    // A.display();
+
     return 0;
 }

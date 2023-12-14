@@ -7,7 +7,7 @@ DO:
 matrix:
 	g++ -fopenmp -g main.cpp -Wall -o something
 	./something
-	#gdb -ex run ./something 
+	#gdb -ex run ./something
 
 git: git_push
 
