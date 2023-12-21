@@ -262,17 +262,88 @@ void run_size()
 
 int main(){
 
-    run_size();
+    if (true){run_threads();
+    run_size();}
 
+    if (false){
+        omp_set_num_threads(8);
+        matrix<type> A(2,2,2);
+        printf("\ndeterminants: %+.3f\n",A.det(1));
+        A.display();
 
-    // omp_set_num_threads(8);
-    // matrix<type> A(2,2,2);
-    // printf("\ndeterminants: %+.3f\n",A.det(1));
-    // A.display(); // reik pratesuot det
+        matrix<type> B(3,3,2);
+        printf("\ndeterminants: %+.3f\n",B.det(1));
+        B.display();
 
-    // matrix<type> B(3,3,2);
-    // printf("\ndeterminants: %+.3f\n",B.det(1));
-    // B.display(); // reik pratesuot det
+        matrix<type> C;
+        printf("\n");
+        C.display();
+
+        printf("\nC = A + B:\n");
+        C = A + B;
+        C.display();
+
+        // A.resize(3, 3);
+        // A.fill((type)1);
+        // printf("\nC = A + B:\n");
+        // C = A + B;
+        // C.display();
+
+        // printf("\nC = A - B:\n");
+        // C = A - B;
+        // C.display();
+
+        // printf("\nC = A * B:\n");
+        // C = A * B;
+        // C.display();
+
+        // A.resize(6, 3);
+        // A.fill((type)1);
+        // printf("\nC = A * B:\n");
+        // C = A * B;
+        // C.display();
+    }
 
     return 0;
 }
+
+// private:
+//     typedef std::vector<std::vector<T>> vec;
+//     void luDecomposition(const vec& A, vec& L, vec& U, std::vector<unsigned>& pivot);
+//     vec* data;
+//     // ---------------------------------------------------------------------------------------------
+// public:
+//     // Constructors and Destructor
+//     matrix ();
+//     matrix (unsigned R, unsigned C); // R - row count, C - column count
+//     matrix (unsigned R, unsigned C, const T V); // V - initial value
+//     ~matrix ();
+    
+//     // Copy Constructor and Assignment Operator
+//     matrix (const matrix& m);
+//     matrix& operator= (const matrix& m);
+//     matrix& operator+= (const matrix& B);
+//     matrix& operator-= (const matrix& B);
+//     matrix& operator*= (const matrix& B);
+    
+//     // Accessors
+//     T& operator() (unsigned r, unsigned c);
+//     T  operator() (unsigned r, unsigned c) const;
+
+//     // Common operations
+//     void fill (frodo f = elrand);
+//     void fill (T f);
+//     void resize (unsigned R, unsigned C);
+//     void display ();
+
+//     // Calculate or do something
+//     T det (T eig = 0);
+//     void tr (const matrix& m); // A.tr(B) : transpose B assign to A matrix function
+
+//     // Friend Declarations
+//     template <typename U>
+//     friend matrix<U> operator+ (const matrix<U>& A, const matrix<U>& B);
+//     template <typename U>
+//     friend matrix<U> operator- (const matrix<U>& A, const matrix<U>& B);
+//     template <typename U>
+//     friend matrix<U> operator* (const matrix<U>& A, const matrix<U>& B);

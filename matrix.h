@@ -57,6 +57,7 @@ public:
 
     // Common operations
     void fill (frodo f = elrand);
+    void fill (T f);
     void resize (unsigned R, unsigned C);
     void display ();
 
@@ -110,12 +111,22 @@ matrix<T>::matrix (const matrix& m) : R(m.R), C(m.C)
 template <typename T>
 void matrix<T>::fill (frodo f)
 {
-    #pragma omp parallel for
+    #pragma omp parallel for collapse(2)
     for (unsigned i=0; i<R; ++i)
         for (unsigned j=0; j<C; ++j)
             data->at(i).at(j) = f(i,j);
             
 }
+template <typename T>
+void matrix<T>::fill (T f)
+{
+    #pragma omp parallel for collapse(2)
+    for (unsigned i=0; i<R; ++i)
+        for (unsigned j=0; j<C; ++j)
+            data->at(i).at(j) = f;
+            
+}
+
 template <typename T>
 void matrix<T>::resize (unsigned R, unsigned C)
 {
@@ -174,11 +185,6 @@ T matrix<T>::det(T eig) {
     for (unsigned i = 0; i < R; i++) {
         det *= U[i][i];
     }
-
-    // // Consider the effect of the eigenvalue
-    // if (eig != 0) {
-    //     det *= eig;
-    // }
     
     return det;
 }
@@ -193,7 +199,7 @@ void matrix<T>::luDecomposition(const vec& A, vec& L, vec& U, std::vector<unsign
 
     for (unsigned k = 0; k < n - 1; k++) {
         unsigned p = k;
-        #pragma omp parallel for
+        #pragma omp parallel for collapse(2)
         for (unsigned i = k + 1; i < n; i++) {
             if (std::abs(U[i][k]) > std::abs(U[p][k])) {
                 p = i;
@@ -228,6 +234,9 @@ matrix<T>& matrix<T>::operator= (const matrix& m)
     if (R != m.R){
         data->resize(m.R);
         R = m.R;
+        #pragma omp parallel for
+        for (unsigned i=0; i<m.R; ++i)
+            data->at(i).resize(m.C);
     }
     if (C != m.C){
         #pragma omp parallel for
@@ -240,7 +249,6 @@ matrix<T>& matrix<T>::operator= (const matrix& m)
     for (unsigned i=0; i<m.R; ++i)
         for (unsigned j=0; j<m.C; ++j)
             data->at(i).at(j) = m(i,j);
-            
     return *this;
 }
 
@@ -309,7 +317,6 @@ matrix<T>& matrix<T>::operator*= (const matrix<T>& B)
 
     return *this;
 }
-
 
 template <typename T>
 matrix<T> operator+ (const matrix<T>& A, const matrix<T>& B)
