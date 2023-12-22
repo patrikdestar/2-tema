@@ -36,6 +36,9 @@ private:
     typedef std::vector<std::vector<T>> vec;
     void luDecomposition(const vec& A, vec& L, vec& U, std::vector<unsigned>& pivot);
     vec* data;
+    unsigned threads = omp_get_num_threads();
+    std::vector<unsigned> WaitR = std::vector<unsigned>(threads,-1);
+    std::vector<unsigned> WaitC = std::vector<unsigned>(threads,-1);
     // ---------------------------------------------------------------------------------------------
 public:
     // Constructors and Destructor
@@ -60,6 +63,7 @@ public:
     void fill (T f);
     void resize (unsigned R, unsigned C);
     void display ();
+    void size ();
 
     // Calculate or do something
     T det (T eig = 0);
@@ -107,6 +111,12 @@ matrix<T>::matrix (const matrix& m) : R(m.R), C(m.C)
 }
 // ---------------------------------------------------------------------------------------------
 // Functions
+
+template <typename T>
+void matrix<T>::size ()
+{
+    printf("\nMatrix size is: %ux%u", R,C);
+}
 
 template <typename T>
 void matrix<T>::fill (frodo f)
@@ -166,59 +176,31 @@ T matrix<T>::det(T eig) {
 
     // Create a copy of the matrix
     vec A = *data;
-
     if (eig != 0){
+        #pragma omp parallel for
         for (unsigned i = 0; i < R; i++){
             A.at(i).at(i) -= eig;
         }
     }
-    // Initialize matrices for LU decomposition
-    vec L(R, std::vector<T>(C, 0));
-    vec U = A;
-    std::vector<unsigned> pivot(R);
 
-    // Perform LU decomposition
-    luDecomposition(A, L, U, pivot);
+    // Gaussian elimination for upper triangular form
+    for (unsigned k = 0; k < R - 1; k++) {
+        for (unsigned i = k + 1; i < R; i++) {
+            T ratio = A[i][k] / A[k][k];
+            #pragma omp parallel for
+            for (unsigned j = k; j < R; j++) {
+                A[i][j] -= ratio * A[k][j];
+            }
+        }
+    }
 
     // Calculate determinant
     T det = 1;
     for (unsigned i = 0; i < R; i++) {
-        det *= U[i][i];
+        det *= A[i][i];
     }
-    
+
     return det;
-}
-
-template <typename T>
-void matrix<T>::luDecomposition(const vec& A, vec& L, vec& U, std::vector<unsigned>& pivot) {
-    unsigned n = A.size();
-
-    for (unsigned i = 0; i < n; i++) {
-        pivot[i] = i;
-    }
-
-    for (unsigned k = 0; k < n - 1; k++) {
-        unsigned p = k;
-        #pragma omp parallel for collapse(2)
-        for (unsigned i = k + 1; i < n; i++) {
-            if (std::abs(U[i][k]) > std::abs(U[p][k])) {
-                p = i;
-            }
-        }
-
-        std::swap(pivot[k], pivot[p]);
-        #pragma omp parallel for
-        for (unsigned i = k + 1; i < n; i++) {
-            if (U[k][k] == 0){L[i][k] = 0;}
-            else {
-                L[i][k] = U[i][k] / U[k][k];}
-            for (unsigned j = k + 1; j < n; j++) {
-                if (L[i][k] == 0){U[i][j] -= U[k][j];}
-                else {
-                U[i][j] -= L[i][k] * U[k][j];}
-            }
-        }
-    }
 }
 
 
@@ -253,11 +235,57 @@ matrix<T>& matrix<T>::operator= (const matrix& m)
 }
 
 template <typename T>
-inline T& matrix<T>::operator() (unsigned r, unsigned c)
-{
+inline T& matrix<T>::operator()(unsigned r, unsigned c) {
+
+    unsigned num = (unsigned)omp_get_thread_num();
+    if (threads != (unsigned)omp_get_num_threads())
+    {
+        #pragma omp barrier
+        if (num == 0){
+            threads = (unsigned)omp_get_num_threads();
+            WaitR.resize(threads);
+            WaitC.resize(threads);
+        }
+        #pragma omp barrier
+    }
+    WaitR.at(num) = r; WaitC.at(num) = c;
+    bool Stuck;
+
+    for (unsigned i = 0; i < threads; i++){
+        if (i != num){
+            if (WaitR.at(i) == r && WaitC.at(i) == c){
+                Stuck = true;
+                break;
+            }
+        }
+    }
+    while (Stuck){
+        Stuck = false;
+        std::vector<unsigned> k;
+        for (unsigned i = 0; i < threads; i++){
+            if (i != num){
+                if (WaitR.at(i) == r && WaitC.at(i) == c){
+                    Stuck = true;
+                    k.push_back(i);
+                }
+            }
+            else {
+                if (WaitR.at(i) == r && WaitC.at(i) == c){
+                    k.push_back(i);
+                }
+            }
+        }
+        if (Stuck){
+            unsigned x = std::rand() % (k.size());
+            if (k.at(x) == num){
+                Stuck = false;
+                WaitR.at(num) = -1; WaitC.at(num) = -1;
+            }
+        }
+    }
+
     return data->at(r).at(c);
 }
-
 template <typename T>
 inline T matrix<T>::operator() (unsigned r, unsigned c) const
 {
@@ -290,30 +318,6 @@ matrix<T>& matrix<T>::operator-= (const matrix<T>& B)
     for (unsigned i=0; i<R; ++i)
         for (unsigned j=0; j<C; ++j)
             data->at(i).at(j) -= B(i,j);
-
-    return *this;
-}
-
-template <typename T>
-matrix<T>& matrix<T>::operator*= (const matrix<T>& B)
-{
-    if (C != B.R) {
-        throw std::invalid_argument("Number of columns in the first matrix must be equal to the number of rows in the second matrix for multiplication");
-    }
-    vec A = *data;
-    vec result(R, std::vector<T>(B.C, 0));  // Create a new matrix to store the result
-
-    #pragma omp parallel for collapse(3)
-    for (unsigned i = 0; i < R; ++i) {
-        for (unsigned j = 0; j < B.C; ++j) {
-            for (unsigned k = 0; k < C; ++k) {
-                result[i][j] += A[i][k] * B(k, j);
-            }
-        }
-    }
-
-    // Update the original matrix with the result
-    *data = result;
 
     return *this;
 }
@@ -358,13 +362,37 @@ matrix<T> operator* (const matrix<T>& A, const matrix<T>& B)
     }
 
     matrix<T> data(A.R, B.C);
-    #pragma omp parallel for collapse(3)
+    #pragma omp parallel for collapse(2)
     for (unsigned i=0; i<data.R; ++i)
         for (unsigned j=0; j<data.C; ++j)
             for (unsigned k=0; k<A.C; ++k)
                 data(i,j) += A(i,k) * B(k,j);
 
     return data;
+}
+
+template <typename T>
+matrix<T>& matrix<T>::operator*= (const matrix<T>& B)
+{
+    if (C != B.R) {
+        throw std::invalid_argument("Number of columns in the first matrix must be equal to the number of rows in the second matrix for multiplication");
+    }
+    vec A = *data;
+    vec result(R, std::vector<T>(B.C, 0));  // Create a new matrix to store the result
+
+    #pragma omp parallel for collapse(2)
+    for (unsigned i = 0; i < R; ++i) {
+        for (unsigned j = 0; j < B.C; ++j) {
+            for (unsigned k = 0; k < C; ++k) {
+                result[i][j] += A[i][k] * B(k, j);
+            }
+        }
+    }
+
+    // Update the original matrix with the result
+    *data = result;
+
+    return *this;
 }
 
 

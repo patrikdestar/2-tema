@@ -149,10 +149,10 @@ void run_threads()
 
 void run_size()
 {
-    int sizes[5] = {1024,2048, 4086, 8192, 16384};
+    unsigned sizes[5] = {1024,2048, 4086, 8192, 16384};
     // My precious matrces
     matrix<type> R(MSIZE, MSIZE), A(MSIZE, MSIZE), B(MSIZE, MSIZE), C(MSIZE, MSIZE);
-    for (int a = 0; a < 5; a++){
+    for (int a = 5; a < 5; a++){
     int size = sizes[a];
     C.resize(size,size);A.resize(size,size);B.resize(size,size);R.resize(size,size);
     printf("\nSize:   %i | %i threads\n", size, threads);
@@ -225,25 +225,30 @@ void run_size()
     show_vals(A, 0);
     std::cout << "\n";
     }
-    int sizes_d[5] = {128, 256, 512, 1024, 2048};
-    for (int a = 0; a < 5; a++){
-    int size = sizes_d[a];
+    
+    unsigned sizes_d[5] = {128, 256, 512, 1024, 2048};
+    for (int a = 4; a < 5; a++){
+        omp_set_num_threads(12);
+        threads = 12;
+
+    unsigned size = sizes_d[a];
     C.resize(size,size);A.resize(size,size);B.resize(size,size);R.resize(size,size);
     printf("\nSize:   %i | %i threads\n", size, threads);
     // TEST 4: det
     printf ("Calculating det...\n");
-    C.fill();
+    C.fill();R.fill(baggsin);B.fill(baggsin);A.tr(R);
     auto start = std::chrono::high_resolution_clock::now();
     type det = C.det();
     auto duration = std::chrono::high_resolution_clock::now() - start;
     printf ("* Thread det    ");
     show_time(((double)duration.count())/1000000000, threads);
     printf ("* Value: [ %+.3f ]\n", det);
-    A.tr(R);
     
     // TEST 6: implicit product
     printf ("\nCalculating product...\n");
     start = std::chrono::high_resolution_clock::now();
+    A.size();
+    B.size();
     C = A * B;
     duration = std::chrono::high_resolution_clock::now() - start;
     printf ("* Thread product (*)");
@@ -261,10 +266,22 @@ void run_size()
 }
 
 int main(){
-
-    if (true){run_threads();
+    // Main testas
+    if (false){//run_threads();
     run_size();}
 
+    // inline operatoriu testas
+    if (true){
+        omp_set_num_threads(4);
+        matrix<type> A(2,2,0);
+        #pragma omp parallel
+        {
+            A(0,0) += 1+1;
+        }
+        A.display();
+    }
+
+    // basic testas
     if (false){
         omp_set_num_threads(8);
         matrix<type> A(2,2,2);
@@ -275,13 +292,13 @@ int main(){
         printf("\ndeterminants: %+.3f\n",B.det(1));
         B.display();
 
-        matrix<type> C;
-        printf("\n");
-        C.display();
+        // matrix<type> C;
+        // printf("\n");
+        // C.display();
 
-        printf("\nC = A + B:\n");
-        C = A + B;
-        C.display();
+        // // printf("\nC = A + B:\n");
+        // // C = A + B;
+        // // C.display();
 
         // A.resize(3, 3);
         // A.fill((type)1);
@@ -306,44 +323,3 @@ int main(){
 
     return 0;
 }
-
-// private:
-//     typedef std::vector<std::vector<T>> vec;
-//     void luDecomposition(const vec& A, vec& L, vec& U, std::vector<unsigned>& pivot);
-//     vec* data;
-//     // ---------------------------------------------------------------------------------------------
-// public:
-//     // Constructors and Destructor
-//     matrix ();
-//     matrix (unsigned R, unsigned C); // R - row count, C - column count
-//     matrix (unsigned R, unsigned C, const T V); // V - initial value
-//     ~matrix ();
-    
-//     // Copy Constructor and Assignment Operator
-//     matrix (const matrix& m);
-//     matrix& operator= (const matrix& m);
-//     matrix& operator+= (const matrix& B);
-//     matrix& operator-= (const matrix& B);
-//     matrix& operator*= (const matrix& B);
-    
-//     // Accessors
-//     T& operator() (unsigned r, unsigned c);
-//     T  operator() (unsigned r, unsigned c) const;
-
-//     // Common operations
-//     void fill (frodo f = elrand);
-//     void fill (T f);
-//     void resize (unsigned R, unsigned C);
-//     void display ();
-
-//     // Calculate or do something
-//     T det (T eig = 0);
-//     void tr (const matrix& m); // A.tr(B) : transpose B assign to A matrix function
-
-//     // Friend Declarations
-//     template <typename U>
-//     friend matrix<U> operator+ (const matrix<U>& A, const matrix<U>& B);
-//     template <typename U>
-//     friend matrix<U> operator- (const matrix<U>& A, const matrix<U>& B);
-//     template <typename U>
-//     friend matrix<U> operator* (const matrix<U>& A, const matrix<U>& B);
