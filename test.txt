@@ -1,174 +1,174 @@
 Size:   8192 | 1 threads
-* Serial fill       in  2.071 s [t*N:  2.071] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread fill       in  2.058 s [t*N:  2.058] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread sum (+)    in  5.895 s [t*N:  5.895] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sum (+=)   in  2.238 s [t*N:  2.238] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sub (-)    in  5.808 s [t*N:  5.808] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread sub (-=)   in  2.241 s [t*N:  2.241] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread tr         in  3.003 s [t*N:  3.003] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+* Serial fill       in  2.285 s [t*N:  2.285] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  2.102 s [t*N:  2.102] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  5.878 s [t*N:  5.878] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  2.219 s [t*N:  2.219] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  5.829 s [t*N:  5.829] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  2.236 s [t*N:  2.236] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  3.081 s [t*N:  3.081] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
 
 
 Size:   8192 | 4 threads
-* Serial fill       in  2.054 s [t*N:  2.054] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread fill       in  0.608 s [t*N:  2.432] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread sum (+)    in  1.792 s [t*N:  7.166] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sum (+=)   in  0.632 s [t*N:  2.528] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sub (-)    in  1.816 s [t*N:  7.263] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread sub (-=)   in  0.631 s [t*N:  2.525] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread tr         in  0.852 s [t*N:  3.406] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+* Serial fill       in  2.073 s [t*N:  2.073] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  0.558 s [t*N:  2.234] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.758 s [t*N:  7.032] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.589 s [t*N:  2.356] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.731 s [t*N:  6.925] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.588 s [t*N:  2.352] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.850 s [t*N:  3.400] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
 
 
 Size:   8192 | 8 threads
-* Serial fill       in  2.095 s [t*N:  2.095] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread fill       in  0.494 s [t*N:  3.953] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread sum (+)    in  1.510 s [t*N: 12.077] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sum (+=)   in  0.516 s [t*N:  4.131] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sub (-)    in  1.541 s [t*N: 12.325] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread sub (-=)   in  0.512 s [t*N:  4.100] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread tr         in  0.661 s [t*N:  5.285] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+* Serial fill       in  2.078 s [t*N:  2.078] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  0.485 s [t*N:  3.876] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.511 s [t*N: 12.085] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.508 s [t*N:  4.066] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.545 s [t*N: 12.360] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.527 s [t*N:  4.219] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.675 s [t*N:  5.400] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
 
 
 Size:   8192 | 12 threads
-* Serial fill       in  2.131 s [t*N:  2.131] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread fill       in  0.363 s [t*N:  4.358] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread sum (+)    in  1.248 s [t*N: 14.978] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sum (+=)   in  0.387 s [t*N:  4.641] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sub (-)    in  1.240 s [t*N: 14.880] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread sub (-=)   in  0.394 s [t*N:  4.725] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread tr         in  0.525 s [t*N:  6.298] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+* Serial fill       in  2.090 s [t*N:  2.090] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread fill       in  0.389 s [t*N:  4.672] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.299 s [t*N: 15.586] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.416 s [t*N:  4.988] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.305 s [t*N: 15.660] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.410 s [t*N:  4.925] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.584 s [t*N:  7.007] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
 
 
 Size:   1024 | 1 threads
-Calculating det...
-* Thread det     in  3.229 s [t*N:  3.229] * Value: [ +inf ]
+Calculating det (10X10 matrix of ones, eig = 1)...
+* Thread det     in  0.000 s [t*N:  0.000] * Value: [ +9.000 ]
 
 Calculating product...
-* Thread product (*) in 62.747 s [t*N: 62.747] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*) in 61.476 s [t*N: 61.476] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Calculating product...
-* Thread product (*=) in 35.368 s [t*N: 35.368] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*=) in 29.815 s [t*N: 29.815] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Size:   1024 | 4 threads
-Calculating det...
-* Thread det     in  1.394 s [t*N:  5.574] * Value: [ -inf ]
+Calculating det (10X10 matrix of ones, eig = 1)...
+* Thread det     in  0.000 s [t*N:  0.001] * Value: [ +9.000 ]
 
 Calculating product...
-* Thread product (*) in 17.290 s [t*N: 69.159] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*) in 16.801 s [t*N: 67.206] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Calculating product...
-* Thread product (*=) in  9.588 s [t*N: 38.351] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*=) in  8.269 s [t*N: 33.076] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Size:   1024 | 8 threads
-Calculating det...
-* Thread det     in  1.691 s [t*N: 13.532] * Value: [ +inf ]
+Calculating det (10X10 matrix of ones, eig = 1)...
+* Thread det     in  0.000 s [t*N:  0.002] * Value: [ +9.000 ]
 
 Calculating product...
-* Thread product (*) in 13.390 s [t*N: 107.118] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*) in 12.946 s [t*N: 103.565] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Calculating product...
-* Thread product (*=) in  7.531 s [t*N: 60.246] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*=) in  6.861 s [t*N: 54.884] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Size:   1024 | 12 threads
-Calculating det...
-* Thread det     in  1.761 s [t*N: 21.129] * Value: [ -inf ]
+Calculating det (10X10 matrix of ones, eig = 1)...
+* Thread det     in  0.000 s [t*N:  0.003] * Value: [ +9.000 ]
 
 Calculating product...
-* Thread product (*) in 10.768 s [t*N: 129.221] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*) in 11.034 s [t*N: 132.410] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Calculating product...
-* Thread product (*=) in  5.796 s [t*N: 69.558] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*=) in  5.783 s [t*N: 69.394] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Size:   1024 | 12 threads
-* Thread fill       in  0.007 s [t*N:  0.079] * Values: [ -0.468 -0.823 +0.778 +0.653 ]
-* Thread sum (+)    in  0.028 s [t*N:  0.338] * Values: [ -0.789 +0.155 -0.212 +0.755 ]
-* Thread sum (+=)   in  0.006 s [t*N:  0.072] * Values: [ -0.789 +0.155 -0.212 +0.755 ]
-* Thread sub (-)    in  0.017 s [t*N:  0.199] * Values: [ +0.146 +1.801 -1.769 -0.551 ]
-* Thread sub (-=)   in  0.007 s [t*N:  0.088] * Values: [ +0.146 +1.801 -1.769 -0.551 ]
-* Thread tr         in  0.007 s [t*N:  0.086] * Values: [ -0.146 -1.801 +1.769 +0.551 ]
+* Thread fill       in  0.007 s [t*N:  0.086] * Values: [ -0.468 -0.823 +0.778 +0.653 ]
+* Thread sum (+)    in  0.026 s [t*N:  0.308] * Values: [ -0.789 +0.155 -0.212 +0.755 ]
+* Thread sum (+=)   in  0.006 s [t*N:  0.076] * Values: [ -0.789 +0.155 -0.212 +0.755 ]
+* Thread sub (-)    in  0.017 s [t*N:  0.201] * Values: [ +0.146 +1.801 -1.769 -0.551 ]
+* Thread sub (-=)   in  0.006 s [t*N:  0.073] * Values: [ +0.146 +1.801 -1.769 -0.551 ]
+* Thread tr         in  0.009 s [t*N:  0.111] * Values: [ -0.146 -1.801 +1.769 +0.551 ]
 
 
 Size:   2048 | 12 threads
-* Thread fill       in  0.023 s [t*N:  0.272] * Values: [ -0.774 -0.671 -0.684 -0.808 ]
-* Thread sum (+)    in  0.124 s [t*N:  1.484] * Values: [ -0.685 -0.732 -0.727 -0.664 ]
-* Thread sum (+=)   in  0.030 s [t*N:  0.361] * Values: [ -0.685 -0.732 -0.727 -0.664 ]
-* Thread sub (-)    in  0.064 s [t*N:  0.768] * Values: [ +0.863 +0.610 +0.641 +0.951 ]
-* Thread sub (-=)   in  0.027 s [t*N:  0.319] * Values: [ +0.863 +0.610 +0.641 +0.951 ]
-* Thread tr         in  0.029 s [t*N:  0.351] * Values: [ -0.863 -0.610 -0.641 -0.951 ]
+* Thread fill       in  0.024 s [t*N:  0.293] * Values: [ -0.774 -0.671 -0.684 -0.808 ]
+* Thread sum (+)    in  0.072 s [t*N:  0.865] * Values: [ -0.685 -0.732 -0.727 -0.664 ]
+* Thread sum (+=)   in  0.027 s [t*N:  0.326] * Values: [ -0.685 -0.732 -0.727 -0.664 ]
+* Thread sub (-)    in  0.069 s [t*N:  0.834] * Values: [ +0.863 +0.610 +0.641 +0.951 ]
+* Thread sub (-=)   in  0.035 s [t*N:  0.426] * Values: [ +0.863 +0.610 +0.641 +0.951 ]
+* Thread tr         in  0.034 s [t*N:  0.411] * Values: [ -0.863 -0.610 -0.641 -0.951 ]
 
 
 Size:   4086 | 12 threads
-* Thread fill       in  0.090 s [t*N:  1.076] * Values: [ -0.930 -0.279 +0.025 +0.923 ]
-* Thread sum (+)    in  0.301 s [t*N:  3.615] * Values: [ -0.486 +0.572 -0.663 -0.020 ]
-* Thread sum (+=)   in  0.112 s [t*N:  1.347] * Values: [ -0.486 +0.572 -0.663 -0.020 ]
-* Thread sub (-)    in  0.258 s [t*N:  3.095] * Values: [ +1.375 +1.129 -0.714 -1.866 ]
-* Thread sub (-=)   in  0.099 s [t*N:  1.191] * Values: [ +1.375 +1.129 -0.714 -1.866 ]
-* Thread tr         in  0.148 s [t*N:  1.771] * Values: [ -1.375 -1.129 +0.714 +1.866 ]
+* Thread fill       in  0.094 s [t*N:  1.123] * Values: [ -0.930 -0.279 +0.025 +0.923 ]
+* Thread sum (+)    in  0.306 s [t*N:  3.674] * Values: [ -0.486 +0.572 -0.663 -0.020 ]
+* Thread sum (+=)   in  0.110 s [t*N:  1.316] * Values: [ -0.486 +0.572 -0.663 -0.020 ]
+* Thread sub (-)    in  0.318 s [t*N:  3.821] * Values: [ +1.375 +1.129 -0.714 -1.866 ]
+* Thread sub (-=)   in  0.111 s [t*N:  1.329] * Values: [ +1.375 +1.129 -0.714 -1.866 ]
+* Thread tr         in  0.148 s [t*N:  1.776] * Values: [ -1.375 -1.129 +0.714 +1.866 ]
 
 
 Size:   8192 | 12 threads
-* Thread fill       in  0.363 s [t*N:  4.359] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
-* Thread sum (+)    in  1.048 s [t*N: 12.578] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sum (+=)   in  0.388 s [t*N:  4.660] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
-* Thread sub (-)    in  1.019 s [t*N: 12.227] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread sub (-=)   in  0.428 s [t*N:  5.138] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
-* Thread tr         in  0.537 s [t*N:  6.440] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
+* Thread fill       in  0.394 s [t*N:  4.727] * Values: [ -0.304 +0.897 -0.870 -0.504 ]
+* Thread sum (+)    in  1.090 s [t*N: 13.076] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sum (+=)   in  0.421 s [t*N:  5.053] * Values: [ -1.278 +0.973 -1.738 -1.504 ]
+* Thread sub (-)    in  1.099 s [t*N: 13.183] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread sub (-=)   in  0.434 s [t*N:  5.209] * Values: [ -0.670 -0.820 +0.002 -0.496 ]
+* Thread tr         in  0.617 s [t*N:  7.407] * Values: [ +0.670 +0.820 -0.002 +0.496 ]
 
 
 Size:   16384 | 12 threads
-* Thread fill       in  2.090 s [t*N: 25.074] * Values: [ -0.946 +0.047 +0.206 -0.989 ]
-* Thread sum (+)    in  5.512 s [t*N: 66.149] * Values: [ -0.833 -0.918 -0.706 -1.348 ]
-* Thread sum (+=)   in  1.596 s [t*N: 19.152] * Values: [ -0.833 -0.918 -0.706 -1.348 ]
-* Thread sub (-)    in  4.956 s [t*N: 59.470] * Values: [ +1.059 -1.012 -1.117 +0.630 ]
-* Thread sub (-=)   in  1.664 s [t*N: 19.973] * Values: [ +1.059 -1.012 -1.117 +0.630 ]
-* Thread tr         in  3.001 s [t*N: 36.014] * Values: [ -1.059 +1.012 +1.117 -0.630 ]
+* Thread fill       in  2.342 s [t*N: 28.104] * Values: [ -0.946 +0.047 +0.206 -0.989 ]
+* Thread sum (+)    in  4.774 s [t*N: 57.288] * Values: [ -0.833 -0.918 -0.706 -1.348 ]
+* Thread sum (+=)   in  1.714 s [t*N: 20.567] * Values: [ -0.833 -0.918 -0.706 -1.348 ]
+* Thread sub (-)    in  4.823 s [t*N: 57.878] * Values: [ +1.059 -1.012 -1.117 +0.630 ]
+* Thread sub (-=)   in  1.642 s [t*N: 19.704] * Values: [ +1.059 -1.012 -1.117 +0.630 ]
+* Thread tr         in  3.249 s [t*N: 38.983] * Values: [ -1.059 +1.012 +1.117 -0.630 ]
 
 
 Size:   128 | 12 threads
-Calculating det...
-* Thread det     in  0.021 s [t*N:  0.252] * Value: [ +3637159898007877221887507023839270564599670671986929098860456778812699505231135963902606722412776019744831501450879749466346125947904201200772506798847663847279427584.000 ]
+Calculating det (28X28 matrix of ones, eig = 1)...
+* Thread det     in  0.001 s [t*N:  0.011] * Value: [ +27.000 ]
 
 Calculating product...
-* Thread product (*) in  0.021 s [t*N:  0.251] * Values: [ -4.375 -3.087 -3.715 -3.859 ]
+* Thread product (*) in  0.024 s [t*N:  0.291] * Values: [ -4.375 -3.087 -3.715 -3.859 ]
 
 Calculating product...
-* Thread product (*=) in  0.011 s [t*N:  0.136] * Values: [ -4.375 -3.087 -3.715 -3.859 ]
+* Thread product (*=) in  0.017 s [t*N:  0.210] * Values: [ -4.375 -3.087 -3.715 -3.859 ]
 
 Size:   256 | 12 threads
-Calculating det...
-* Thread det     in  0.083 s [t*N:  0.999] * Value: [ -inf ]
+Calculating det (56X56 matrix of ones, eig = 1)...
+* Thread det     in  0.004 s [t*N:  0.049] * Value: [ +55.000 ]
 
 Calculating product...
-* Thread product (*) in  0.158 s [t*N:  1.891] * Values: [ +4.611 +0.760 +0.399 +0.867 ]
+* Thread product (*) in  0.180 s [t*N:  2.158] * Values: [ +4.611 +0.760 +0.399 +0.867 ]
 
 Calculating product...
-* Thread product (*=) in  0.082 s [t*N:  0.979] * Values: [ +4.611 +0.760 +0.399 +0.867 ]
+* Thread product (*=) in  0.090 s [t*N:  1.076] * Values: [ +4.611 +0.760 +0.399 +0.867 ]
 
 Size:   512 | 12 threads
-Calculating det...
-* Thread det     in  0.407 s [t*N:  4.883] * Value: [ +inf ]
+Calculating det (12X12 matrix of ones, eig = 1)...
+* Thread det     in  0.000 s [t*N:  0.002] * Value: [ +11.000 ]
 
 Calculating product...
-* Thread product (*) in  1.257 s [t*N: 15.089] * Values: [ +0.491 +0.040 +0.430 -0.061 ]
+* Thread product (*) in  1.355 s [t*N: 16.263] * Values: [ +0.491 +0.040 +0.430 -0.061 ]
 
 Calculating product...
-* Thread product (*=) in  0.657 s [t*N:  7.882] * Values: [ +0.491 +0.040 +0.430 -0.061 ]
+* Thread product (*=) in  0.693 s [t*N:  8.313] * Values: [ +0.491 +0.040 +0.430 -0.061 ]
 
 Size:   1024 | 12 threads
-Calculating det...
-* Thread det     in  1.658 s [t*N: 19.894] * Value: [ -inf ]
+Calculating det (24X24 matrix of ones, eig = 1)...
+* Thread det     in  0.001 s [t*N:  0.007] * Value: [ +23.000 ]
 
 Calculating product...
-* Thread product (*) in 10.523 s [t*N: 126.275] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*) in 11.602 s [t*N: 139.229] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Calculating product...
-* Thread product (*=) in  6.190 s [t*N: 74.277] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
+* Thread product (*=) in  5.800 s [t*N: 69.601] * Values: [ +0.219 -1.310 +0.246 -11.138 ]
 
 Size:   2048 | 12 threads
-Calculating det...
-* Thread det     in 11.802 s [t*N: 141.620] * Value: [ -inf ]
+Calculating det (48X48 matrix of ones, eig = 1)...
+* Thread det     in  0.002 s [t*N:  0.028] * Value: [ +47.000 ]
 
 Calculating product...
-* Thread product (*) in  0.026 s [t*N:  0.316] * Values: [ +0.000 +0.000 +0.000 +0.000 ]
+* Thread product (*) in 86.915 s [t*N: 1042.978] * Values: [ -0.037 -0.231 -0.427 -0.560 ]
 
 Calculating product...
-* Thread product (*=) in  0.010 s [t*N:  0.115] * Values: [ +0.000 +0.000 +0.000 +0.000 ]
+* Thread product (*=) in 48.231 s [t*N: 578.777] * Values: [ -0.037 -0.231 -0.427 -0.560 ]

@@ -39,6 +39,7 @@ private:
     unsigned threads = omp_get_num_threads();
     std::vector<unsigned> WaitR = std::vector<unsigned>(threads,-1);
     std::vector<unsigned> WaitC = std::vector<unsigned>(threads,-1);
+    T& operator() (unsigned r, unsigned c, unsigned p);
     // ---------------------------------------------------------------------------------------------
 public:
     // Constructors and Destructor
@@ -183,8 +184,28 @@ T matrix<T>::det(T eig) {
         }
     }
 
-    // Gaussian elimination for upper triangular form
+    // Gaussian elimination with partial pivoting for upper triangular form
     for (unsigned k = 0; k < R - 1; k++) {
+        // Partial pivoting: find the row with the maximum absolute value in the current column
+        unsigned maxIndex = k;
+        T maxValue = std::abs(A[k][k]);
+
+        for (unsigned i = k + 1; i < R; i++) {
+            if (std::abs(A[i][k]) > maxValue) {
+                maxIndex = i;
+                maxValue = std::abs(A[i][k]);
+            }
+        }
+
+        // Swap rows if needed
+        if (maxIndex != k) {
+            #pragma omp parallel for
+            for (unsigned j = k; j < R; j++) {
+                std::swap(A[k][j], A[maxIndex][j]);
+            }
+        }
+
+        // Continue with Gaussian elimination
         for (unsigned i = k + 1; i < R; i++) {
             T ratio = A[i][k] / A[k][k];
             #pragma omp parallel for
@@ -279,13 +300,22 @@ inline T& matrix<T>::operator()(unsigned r, unsigned c) {
             unsigned x = std::rand() % (k.size());
             if (k.at(x) == num){
                 Stuck = false;
-                WaitR.at(num) = -1; WaitC.at(num) = -1;
             }
         }
     }
+    WaitR.at(num) = -1; WaitC.at(num) = -1;
 
     return data->at(r).at(c);
 }
+
+// for inside use only
+template <typename T>
+inline T& matrix<T>::operator()(unsigned r, unsigned c, unsigned i) {
+
+    return data->at(r).at(c);
+}
+
+
 template <typename T>
 inline T matrix<T>::operator() (unsigned r, unsigned c) const
 {
@@ -333,7 +363,7 @@ matrix<T> operator+ (const matrix<T>& A, const matrix<T>& B)
     #pragma omp parallel for collapse(2)
     for (unsigned i=0; i<data.R; ++i)
         for (unsigned j=0; j<data.C; ++j)
-            data(i,j) = A(i,j) + B(i,j);
+            data(i,j,1) = A(i,j) + B(i,j);
 
     return data;
 }
@@ -349,7 +379,7 @@ matrix<T> operator- (const matrix<T>& A, const matrix<T>& B)
     #pragma omp parallel for collapse(2)
     for (unsigned i=0; i<data.R; ++i)
         for (unsigned j=0; j<data.C; ++j)
-            data(i,j) = A(i,j) - B(i,j);
+            data(i,j,1) = A(i,j) - B(i,j);
 
     return data;
 }
@@ -360,14 +390,15 @@ matrix<T> operator* (const matrix<T>& A, const matrix<T>& B)
     if (A.C != B.R) {
         throw std::invalid_argument("Number of columns in the first matrix must be equal to the number of rows in the second matrix for multiplication");
     }
-
     matrix<T> data(A.R, B.C);
-    #pragma omp parallel for collapse(2)
-    for (unsigned i=0; i<data.R; ++i)
-        for (unsigned j=0; j<data.C; ++j)
-            for (unsigned k=0; k<A.C; ++k)
-                data(i,j) += A(i,k) * B(k,j);
-
+    #pragma omp parallel for  collapse(2)
+    for (unsigned i=0; i<data.R; ++i){
+        for (unsigned j=0; j<data.C; ++j){
+            for (unsigned k=0; k<A.C; ++k){
+                data(i,j,1) += A(i,k) * B(k,j);
+            }
+        }
+    }
     return data;
 }
 
@@ -379,7 +410,6 @@ matrix<T>& matrix<T>::operator*= (const matrix<T>& B)
     }
     vec A = *data;
     vec result(R, std::vector<T>(B.C, 0));  // Create a new matrix to store the result
-
     #pragma omp parallel for collapse(2)
     for (unsigned i = 0; i < R; ++i) {
         for (unsigned j = 0; j < B.C; ++j) {

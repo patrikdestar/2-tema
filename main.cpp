@@ -113,20 +113,25 @@ void run_threads()
     }
 
     C.resize(MSIZE2,MSIZE2);A.resize(MSIZE2,MSIZE2);B.resize(MSIZE2,MSIZE2);R.resize(MSIZE2,MSIZE2);
+    unsigned detn=MSIZE2/100;
+    matrix<type> G(detn, detn, 1);
     for (int a = 0; a < 4; a++){
     if (a == 0) threads = 1;
     else threads = 4*a;
     omp_set_num_threads(threads);
     printf("\nSize:   %i | %i threads\n", MSIZE2, threads);
     // TEST 4: det
-    printf ("Calculating det...\n");
-    C.fill();
+
+
+    printf ("Calculating det (%uX%u matrix of ones, eig = 1)...\n", detn, detn);
     auto start = std::chrono::high_resolution_clock::now();
-    type det = C.det();
+    type det = G.det(1);
     auto duration = std::chrono::high_resolution_clock::now() - start;
     printf ("* Thread det    ");
     show_time(((double)duration.count())/1000000000, threads);
     printf ("* Value: [ %+.3f ]\n", det);
+
+
     A.tr(R);
     // TEST 6: implicit product
     printf ("\nCalculating product...\n");
@@ -152,7 +157,7 @@ void run_size()
     unsigned sizes[5] = {1024,2048, 4086, 8192, 16384};
     // My precious matrces
     matrix<type> R(MSIZE, MSIZE), A(MSIZE, MSIZE), B(MSIZE, MSIZE), C(MSIZE, MSIZE);
-    for (int a = 5; a < 5; a++){
+    for (int a = 0; a < 5; a++){
     int size = sizes[a];
     C.resize(size,size);A.resize(size,size);B.resize(size,size);R.resize(size,size);
     printf("\nSize:   %i | %i threads\n", size, threads);
@@ -227,7 +232,9 @@ void run_size()
     }
     
     unsigned sizes_d[5] = {128, 256, 512, 1024, 2048};
-    for (int a = 4; a < 5; a++){
+    unsigned detn;
+    matrix<type> G;
+    for (int a = 0; a < 5; a++){
         omp_set_num_threads(12);
         threads = 12;
 
@@ -235,10 +242,14 @@ void run_size()
     C.resize(size,size);A.resize(size,size);B.resize(size,size);R.resize(size,size);
     printf("\nSize:   %i | %i threads\n", size, threads);
     // TEST 4: det
-    printf ("Calculating det...\n");
+
     C.fill();R.fill(baggsin);B.fill(baggsin);A.tr(R);
+    detn=size%100;
+    G.resize(detn,detn);
+    G.fill(1);
+    printf ("Calculating det (%uX%u matrix of ones, eig = 1)...\n", detn, detn);
     auto start = std::chrono::high_resolution_clock::now();
-    type det = C.det();
+    type det = G.det(1);
     auto duration = std::chrono::high_resolution_clock::now() - start;
     printf ("* Thread det    ");
     show_time(((double)duration.count())/1000000000, threads);
@@ -247,8 +258,6 @@ void run_size()
     // TEST 6: implicit product
     printf ("\nCalculating product...\n");
     start = std::chrono::high_resolution_clock::now();
-    A.size();
-    B.size();
     C = A * B;
     duration = std::chrono::high_resolution_clock::now() - start;
     printf ("* Thread product (*)");
@@ -267,11 +276,11 @@ void run_size()
 
 int main(){
     // Main testas
-    if (false){//run_threads();
+    if (true){run_threads();
     run_size();}
 
     // inline operatoriu testas
-    if (true){
+    if (false){
         omp_set_num_threads(4);
         matrix<type> A(2,2,0);
         #pragma omp parallel
@@ -281,7 +290,7 @@ int main(){
         A.display();
     }
 
-    // basic testas
+    // basic pristatymo testas
     if (false){
         omp_set_num_threads(8);
         matrix<type> A(2,2,2);
